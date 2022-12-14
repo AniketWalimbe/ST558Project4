@@ -47,11 +47,12 @@ body <- dashboardBody(
   #tags$script("document.title = 'Framhingham Heart Disease Data set'"),
   tabItems(tabItem(tabName = "about",
              fluidPage(
-               fluidRow(h3(strong("Why this project ?"))),
+               column(align = "center", 12, span(tags$img(src = "diabetes.jpg", width = "50%"))),
+               fluidRow(column(align = "center", 12, h3(strong("Framhingham Heart Disease")))),
                fluidRow(h4("The main purpose of the app is to predict the effect of various different factors like age, sex, glucose level, smoking, cholesterol and many others on diabetes.
                This app will help to determine what levels of different factors can be dangerous and a user can monitor his/her reports based on the reference level provided.")),
                fluidRow(h3(strong("The Data :"))),
-               fluidRow(h4("The dataset was collected from the above link. From this data, I have selected diabetes as the response variable and all the other factors as predictors."),
+               fluidRow(h4("The dataset was collected from", a("this link.", href = "https://www.kaggle.com/datasets/naveengowda16/logistic-regression-heart-disease-prediction") , "From this data, I have selected diabetes as the response variable and all the other factors as predictors."),
                         h4("Male(Categorical) :  Whether the sex of the person is male or female"),
                         h4("Age(Numeric) : Age of the person"),
                         h4("Education (Categorical) : The level of education of the person"),
@@ -183,7 +184,10 @@ body <- dashboardBody(
                tabPanel("Modeling info", "Different types of models :",
                         column(12,   
                                fluidRow(h3(strong("1. Generalized Linear Model"))),
-                               fluidRow(h4("Generalized Linear Regression model allows for response from non normal distributions and have both continuous and categorical predictors.")),
+                               fluidRow(h4("Generalized Linear Regression model allows for response from non normal distributions and have both continuous and categorical predictors. The GLM equation is :")),
+                               withMathJax(
+                                 helpText('$$ {\\ln\\left(\\frac{p}{1-p}\\right)} = \\beta_0 + \\beta_1\\ x_1 + .... + \\beta_n\\ x_n $$')
+                               ),
                                fluidRow(h4(strong("Advantages :"))),
                                fluidRow(h4("Response variable can have any form of exponential distribution type.")),
                                fluidRow(h4(strong("Disadvantages :"))),
