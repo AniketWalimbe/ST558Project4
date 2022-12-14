@@ -1,6 +1,6 @@
 # ST558Project4
 
-##Framingham Heart Disease 
+## Framingham Heart Disease 
 
 The main purpose of the app is to predict the effect of various different factors like age, sex, glucose level, smoking, cholesterol and many others on diabetes. This app will help to determine what levels of different factors can be dangerous and a user can monitor his/her reports based on the reference level provided. 
 
