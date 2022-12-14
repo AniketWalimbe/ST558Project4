@@ -45,7 +45,55 @@ sidebar <- dashboardSidebar(
 body <- dashboardBody(
   #tags$head(
   #tags$script("document.title = 'Framhingham Heart Disease Data set'"),
-  tabItems(
+  tabItems(tabItem(tabName = "about",
+             fluidPage(
+               fluidRow(h3(strong("Why this project ?"))),
+               fluidRow(h4("The main purpose of the app is to predict the effect of various different factors like age, sex, glucose level, smoking, cholesterol and many others on diabetes.
+               This app will help to determine what levels of different factors can be dangerous and a user can monitor his/her reports based on the reference level provided.")),
+               fluidRow(h3(strong("The Data :"))),
+               fluidRow(h4("The dataset was collected from the above link. From this data, I have selected diabetes as the response variable and all the other factors as predictors."),
+                        h4("Male(Categorical) :  Whether the sex of the person is male or female"),
+                        h4("Age(Numeric) : Age of the person"),
+                        h4("Education (Categorical) : The level of education of the person"),
+                        h4("currentSmoker(Categorical) : Does the person smoke"),
+                        h4("cigsperDay( Numeric) : how many cigarettes per day"),
+                        h4("BPMeds (Categorical) : If the person takes BP medication"),
+                        h4("prevalentStroke (Categorical) : If the person had a previous heart stroke"),
+                        h4("totChol (Numeric) : total cholesterol reading of the person."),
+                        h4("sysBP (Numeric) :"),
+                        h4("diaBP (Numeric) :"),
+                        h4("BMI (Numeric) : BMI of the person"),
+                        h4("heartRate : heart rate of the person"), 
+                        h4("glucose : glucose level of the person")),
+               
+               fluidRow(h3(strong(" The app consists of 4 tabs: "))),
+                        h4(strong("1. The Introduction Tab")),
+                        h4("This tab provides information about the app, it's purpose, data used and provides brief information about all the tabs present in the app."),
+                        h4(strong("2. The Data Tab")),
+                        h4("This tab shows the user the data used and allows them to apply various filters based on any column of choice.
+                           It also provides an option to download the filtered data and saves it at a csv file. The filters are given for columns
+                           namely age, sex, smoking habbits ,cholestrol level and glucose level."),
+                        h4(strong("3. Exploratory Data Analysis Tab")),
+                        h4("This tab performs exploratory data analysis on the data. It gives the user, options to select the variables they want to find the relation between 
+                           and also gives the option of type of plot they want to look at. This tab also shows the statistics for the average value of predictors at which a person has diabetes."),
+                        h4(strong("4. Modelling Tab")),
+                        h4("This tab consists of 3 sub tabs namely :"),
+                        h4("a. Modelling info :"),
+                        h4("In this tab, information about 3 models fitted in the app, which are, Generalized Linear Model, Classification Tree,
+                           and Random Forest is given. It consists of their advantages and disavdantages as well."),
+                        h4("b' Model Fitting :"),
+                        h4("This tab allows the user to split the data into testing and training set and also allows the selection of variables
+                           that should be used for fitting all the three models. Once the variables are selected, the Build All button fits all the
+                           models and shows the summaries. "),
+                        h4("c. Prediction :"),
+                        h4("This tab allows the user to select the values of variables at which whether a person has diabetes or not need to be predicted.
+                           The prediction is the displayed.")
+                        
+                        
+               
+             )
+    
+  ),
     #   tabItem(tabName = "about" ,
     #           fluidPage(
     #             fluidRow(
@@ -151,9 +199,20 @@ body <- dashboardBody(
                                fluidRow(h4(strong("Disadvantages :"))),
                                fluidRow(h4(("Small changes in data can vastly change tree"))),
                                fluidRow(h4("Greedy algorithm necessary (no optimal algorithm")),
-                               fluidRow(h4("Usually pruning is needed")))
-               ),
-               #fluidRow(h3(strong("3. Random Forest"))),
+                               fluidRow(h4("Usually pruning is needed")),
+                               
+                        
+                               fluidRow(h3(strong("3. Random Forest")),
+                                        h4("Random Forest creates multiple trees from the bootstrap samples and averages the results of 
+                                           all. It does not use all the predictors but uses a random subset of predictors for each bootstrap sample fit."),
+                                        h4(strong("Advantages :")),
+                                        h4("It can perform both regression as well as classification tasks."),
+                                        h4("It can handle large data efficiently."),
+                                        h4("It provide higher accuracy than decision tree models."),
+                                        h4(strong("Disadvantages :")),
+                                        h4("Large number of trees can make the algorithm too slow")
+               ))),
+               
                
                tabPanel("Model Fitting", 
                         fluidRow(
