@@ -32,9 +32,8 @@ sidebar <- dashboardSidebar(
               
               menuItem("Data Exploration", tabName = "eda", icon=icon("line-chart")),
               
-              menuItem("Modelling", tabName = "modeling", icon = icon("circle-info")),
+              menuItem("Modelling", tabName = "modeling", icon = icon("circle-info"))
               
-              menuItem("Prediction", tabName = "prediction", icon = icon('dashboard'))
               
               
   )
@@ -274,8 +273,8 @@ body <- dashboardBody(
                         selectizeInput("modelsel", "Select Model for Preiction", choices = c("Generalized Linear Regression", "Classification Tree", "Random Forest"), selected = "Generalized Linear Regression"),
                         
                         
-                        ##copy from here
-                        conditionalPanel("input.modelsel == Generalized Linear Regression",
+                    
+                        conditionalPanel("input.modelsel == 'Generalized Linear Regression'",
                                          conditionalPanel("input.glmmale == 1", 
                                                           selectizeInput("predglmmale", "Select male", choices = c(0,1), selected = 0)
                                          ),
@@ -302,9 +301,66 @@ body <- dashboardBody(
                                          conditionalPanel("input.glmBPMeds",
                                                           selectizeInput("predglmBPMeds", "Any BP medications ?", choices = c(0,1), selected = 0)),
                                          textOutput("glmpred")
+                        
+                        ),
+                        conditionalPanel("input.modelsel == 'Classification Tree'",
+                                         conditionalPanel("input.ctmale == 1", 
+                                                          selectizeInput("predctmale", "Select male", choices = c(0,1), selected = 0)
+                                         ),
+                                         conditionalPanel("input.ctage == 1", 
+                                                          numericInput("predctage", "Enter Age", min = 0, value = 50)),
+                                         conditionalPanel("input.ctBMI == 1", 
+                                                          numericInput("predctBMI", "Enter BMI", min = 0, value = 10)),
+                                         conditionalPanel("input.ctcurrentSmoker == 1", 
+                                                          selectizeInput("predctcurrentSmoker", "Current Smoker?", choices = c(0,1), selected = 0)),
+                                         conditionalPanel("input.ctcigsPerDay", 
+                                                          numericInput("predctcigsPerDay", "Number of Cigarettes Per Day", min = 0, value = 2)),
+                                         conditionalPanel("input.ctheartRate", 
+                                                          numericInput("predctheartRate", "Enter Heart Rate", min = 0, value = 80)),
+                                         conditionalPanel("input.ctsysBP", 
+                                                          numericInput("predctsysBP", "Systolic Blood Pressure", min = 30, value= 50)),
+                                         conditionalPanel("input.ctdiaBP",
+                                                          numericInput("predctdiaBP", "Diabolic Blood Pressure", min = 70, value= 100)),
+                                         conditionalPanel("input.cttotChol",
+                                                          numericInput("predcttotchol", "Cholestrol Value", min = 0, value= 20)),
+                                         conditionalPanel("input.ctprevalentStroke",
+                                                          selectizeInput("predctprevalentStroke", "Prevalent Stroke?", choices = c(0,1), selected = 0)),
+                                         conditionalPanel("input.ctglucose",
+                                                          numericInput("predctglucose", "Glucose Value", min = 0, value= 20)),
+                                         conditionalPanel("input.ctBPMeds",
+                                                          selectizeInput("predctBPMeds", "Any BP medications ?", choices = c(0,1), selected = 0)),
+                                         textOutput("ctpred")
+                        
+                        ),
+                        conditionalPanel("input.modelsel == 'Random Forest'",
+                                         conditionalPanel("input.rfmale == 1", 
+                                                          selectizeInput("predrfmale", "Select male", choices = c(0,1), selected = 0)
+                                         ),
+                                         conditionalPanel("input.rfage == 1", 
+                                                          numericInput("predrfage", "Enter Age", min = 0, value = 50)),
+                                         conditionalPanel("input.rfBMI == 1", 
+                                                          numericInput("predrfBMI", "Enter BMI", min = 0, value = 10)),
+                                         conditionalPanel("input.rfcurrentSmoker == 1", 
+                                                          selectizeInput("predrfcurrentSmoker", "Current Smoker?", choices = c(0,1), selected = 0)),
+                                         conditionalPanel("input.rfcigsPerDay", 
+                                                          numericInput("predrfcigsPerDay", "Number of Cigarettes Per Day", min = 0, value = 2)),
+                                         conditionalPanel("input.rfheartRate", 
+                                                          numericInput("predrfheartRate", "Enter Heart Rate", min = 0, value = 80)),
+                                         conditionalPanel("input.rfsysBP", 
+                                                          numericInput("predrfsysBP", "Systolic Blood Pressure", min = 30, value= 50)),
+                                         conditionalPanel("input.rfdiaBP",
+                                                          numericInput("predrfdiaBP", "Diabolic Blood Pressure", min = 70, value= 100)),
+                                         conditionalPanel("input.rftotChol",
+                                                          numericInput("predrftotchol", "Cholestrol Value", min = 0, value= 20)),
+                                         conditionalPanel("input.rfprevalentStroke",
+                                                          selectizeInput("predrfprevalentStroke", "Prevalent Stroke?", choices = c(0,1), selected = 0)),
+                                         conditionalPanel("input.rfglucose",
+                                                          numericInput("predrfglucose", "Glucose Value", min = 0, value= 20)),
+                                         conditionalPanel("input.rfBPMeds",
+                                                          selectizeInput("predrfBPMeds", "Any BP medications ?", choices = c(0,1), selected = 0)),
+                                         textOutput("rfpred")
                         )
                         
-                        #till here
                         
                )
         )

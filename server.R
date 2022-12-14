@@ -388,10 +388,11 @@ shinyServer(function(session, input, output){
     
     
     ###########################################
+    observeEvent(input$modelsel, {
     
     if(input$modelsel == "Generalized Linear Regression"){
       glmPreddf <- data.frame(diabetes = c(0))
-      glmPreddf <- glmPreddf %>% select(diabetes)
+      #glmPreddf <- glmPreddf %>% select(diabetes)
       
       glmPreddf$male <- c(input$predglmmale)
       glmPreddf$age <- c(input$predglmage)
@@ -414,15 +415,83 @@ shinyServer(function(session, input, output){
       
       glmprediction <- predict(glm, newdata = glmPreddf)
       
-      ##change lmgpred to ctpred rfpred
       output$glmpred <- renderText({
-        paste0("The predicted diabetes using ", input$modelsel," model is: ", glmprediction)
+        paste0("The predicted diabetes using ", input$modelsel," model is: ", glmprediction  , ": Where 0 means no diabetes predicted and 1 means diabetes predicted")
       })
-    }else if(input$modelsel == "Classification Tree"){
-      
-    }else{
-      
     }
+    
+    if(input$modelsel == "Classification Tree"){
+    ctPreddf <- data.frame(diabetes = c(0))
+    #ctPreddf <- ctPreddf %>% select(diabetes)
+    
+    ctPreddf$male <- c(input$predctmale)
+    ctPreddf$age <- c(input$predctage)
+    ctPreddf$BMI <- c(input$predctBMI)
+    ctPreddf$currentSmoker <- c(input$predctcurrentSmoker)
+    ctPreddf$cigsPerDay <- c(input$predctcigsPerDay)
+    ctPreddf$heartRate <- c(input$predctheartRate)
+    ctPreddf$sysBP <- c(input$predctsysBP)
+    ctPreddf$diaBP <- c(input$predctdiaBP)
+    ctPreddf$totChol <- c(input$predcttotchol)
+    ctPreddf$prevalentStroke <- c(input$predctprevalentStroke)
+    ctPreddf$glucose <- c(input$predctglucose)
+    ctPreddf$BPMeds <- c(input$predctBPMeds)
+    
+    ctPreddf$male <- as_factor(ctPreddf$male)
+    ctPreddf$BPMeds <- as_factor(ctPreddf$BPMeds)
+    
+    ctPreddf$prevalentStroke <- as_factor(ctPreddf$prevalentStroke)
+    ctPreddf$currentSmoker <- as_factor(ctPreddf$currentSmoker)
+    
+    ctprediction <- predict(ct, newdata = ctPreddf)
+    
+    print(ctprediction)
+
+    output$ctpred <- renderText({
+      paste0("The predicted diabetes using ", input$modelsel," model is: ", ctprediction  , " :Where 0 means no diabetes predicted and 1 means diabetes predicted")
+    })
+    }
+    
+      
+      
+    if(input$modelsel == "Random Forest"){
+      rfPreddf <- data.frame(diabetes = c(0))
+      #ctPreddf <- ctPreddf %>% select(diabetes)
+      
+      rfPreddf$male <- c(input$predrfmale)
+      rfPreddf$age <- c(input$predrfage)
+      rfPreddf$BMI <- c(input$predrfBMI)
+      rfPreddf$currentSmoker <- c(input$predrfcurrentSmoker)
+      rfPreddf$cigsPerDay <- c(input$predrfcigsPerDay)
+      rfPreddf$heartRate <- c(input$predrfheartRate)
+      rfPreddf$sysBP <- c(input$predrfsysBP)
+      rfPreddf$diaBP <- c(input$predrfdiaBP)
+      rfPreddf$totChol <- c(input$predrftotchol)
+      rfPreddf$prevalentStroke <- c(input$predrfprevalentStroke)
+      rfPreddf$glucose <- c(input$predrfglucose)
+      rfPreddf$BPMeds <- c(input$predrfBPMeds)
+      
+      rfPreddf$male <- as_factor(rfPreddf$male)
+      rfPreddf$BPMeds <- as_factor(rfPreddf$BPMeds)
+      
+      rfPreddf$prevalentStroke <- as_factor(rfPreddf$prevalentStroke)
+      rfPreddf$currentSmoker <- as_factor(rfPreddf$currentSmoker)
+      
+      rfprediction <- predict(rf, newdata = rfPreddf)
+      
+      #print(ctprediction)
+      
+      output$rfpred <- renderText({
+        paste0("The predicted diabetes using ", input$modelsel," model is: ", rfprediction  , " :Where 0 means no diabetes predicted and 1 means diabetes predicted")
+        
+      })
+    
+      
+      
+      
+      
+  }
+      })
     
     ############################################
     
